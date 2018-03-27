@@ -47,6 +47,7 @@ public class TouchInput : MonoBehaviour {
 					sticker = hit.transform.gameObject; 
 					recipientChild = Instantiate (sticker, sticker.transform.position, Quaternion.identity); 
 					recipientChild.layer = 9; 
+					recipientChild.tag = "inPlay"; 
 					//parented = true; 
 					ParentObject(recipientChild, touchParent);   
 

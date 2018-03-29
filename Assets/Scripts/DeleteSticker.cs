@@ -65,4 +65,12 @@ public class DeleteSticker : MonoBehaviour {
 
 	}
 
+	public void ClearStickers(){
+		GameObject[] inPlayStickers; 
+		inPlayStickers = GameObject.FindGameObjectsWithTag ("inPlay"); 
+		foreach (GameObject sticker in inPlayStickers) {
+			Destroy (sticker); 
+		}
+	}
+
 }

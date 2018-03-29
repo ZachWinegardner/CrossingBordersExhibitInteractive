@@ -20,7 +20,7 @@ public class TouchInput : MonoBehaviour {
 	float startDist; 
 	float currentDist; 
 	float diffDist;
-
+	public GameObject doneButton; 
 	void Update () {
 
 		//Whenever there is a touch
@@ -66,9 +66,12 @@ public class TouchInput : MonoBehaviour {
 			if (Input.GetTouch (0).phase == TouchPhase.Ended || Input.GetTouch (0).phase == TouchPhase.Canceled) {
 				//parented = false; 
 				UnParentObject (recipientChild); 
-				DeleteSticker DS = recipientChild.GetComponent<DeleteSticker> (); 
-				if (DS._readyToDelete) {
-					Destroy (recipientChild); 
+				CheckIfDone (); 
+				if (recipientChild != null) {
+					DeleteSticker DS = recipientChild.GetComponent<DeleteSticker> (); 
+					if (DS._readyToDelete) {
+						Destroy (recipientChild); 
+					}
 				}
 			}
 
@@ -128,6 +131,8 @@ public class TouchInput : MonoBehaviour {
 			}
 
 		}
+
+
 	}
 
 	void ParentObject(GameObject child, Transform parent){
@@ -140,6 +145,13 @@ public class TouchInput : MonoBehaviour {
 		if (recipientChild != null) {
 			
 			child.transform.parent = null; 
+		}
+			
+	}
+
+	void CheckIfDone(){
+		if (GameObject.FindGameObjectsWithTag ("inPlay").Length >= 3) {
+			doneButton.SetActive (true); 
 		}
 	}
 

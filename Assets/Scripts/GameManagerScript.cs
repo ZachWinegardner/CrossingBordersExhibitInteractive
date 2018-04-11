@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GameManagerScript : MonoBehaviour {
 
-	public Transform dataPage; 
 
 	// Use this for initialization
 	void Start () {
@@ -16,12 +15,12 @@ public class GameManagerScript : MonoBehaviour {
 		
 	}
 
+	public void ToggleInfo (GameObject info){
 
-	public void RevealData(){
-		dataPage.Translate (0, -1680f, 0); 
+		if (info.activeSelf) {
+			info.SetActive (false); 
+		} else
+			info.SetActive (true); 
 	}
 
-	public void HideData(){
-		dataPage.Translate (0, 1680f, 0); 
-	}
 }

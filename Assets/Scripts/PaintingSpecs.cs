@@ -11,8 +11,16 @@ public class PaintingSpecs : MonoBehaviour {
 	public Transform imagePos; 
 	public Vector3 posOfCamera; 
 
+	public Transform frame; 
+
+	public Vector3 frameScale; 
+
 	void Start(){
 		posOfCamera = imagePos.position; 
+	}
+
+	public void SetFrame(){
+		frame.localScale = frameScale; 
 	}
 
 

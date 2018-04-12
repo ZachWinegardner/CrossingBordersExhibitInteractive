@@ -32,25 +32,24 @@ public class DeleteSticker : MonoBehaviour {
 
 	void Update(){
 
-		if (isOverTrash) {
-			if (timer >=0)
-			timer -= Time.deltaTime; 
-		}
-
-		if (timer <= 0) {
-			_readyToDelete = true; 
-			stateTimer += Time.deltaTime*5; 
-			spriteRenderer.color = Color32.Lerp (originColor, deletedColor, stateTimer); 
-			Vector3 newScale; 
-			newScale = Vector3.Lerp (originScale, deletedScale, stateTimer); 
-			transform.localScale = newScale; 
-			//change color and size
-		}
+//		if (isOverTrash) {
+//			if (timer >=0)
+//			timer -= Time.deltaTime; 
+//		}
+//
+//		if (timer <= 0) {
+//			_readyToDelete = true; 
+//			stateTimer += Time.deltaTime*5; 
+//			spriteRenderer.color = Color32.Lerp (originColor, deletedColor, stateTimer); 
+//			Vector3 newScale; 
+//			newScale = Vector3.Lerp (originScale, deletedScale, stateTimer); 
+//			transform.localScale = newScale; 
+//			//change color and size
+//		}
 	}
 	void OnTriggerEnter(Collider other){
-		if (other.gameObject.name == "trashcan") {
-			timer = timerTime; 
-			isOverTrash = true; 
+		if (other.gameObject.name == "PanelDelete") {
+			_readyToDelete = true;  
 
 		}
 	}

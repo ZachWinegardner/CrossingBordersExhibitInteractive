@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI; 
 
 public class SnapShot : MonoBehaviour {
 
@@ -13,17 +14,18 @@ public class SnapShot : MonoBehaviour {
 
 	void Start () {
 		
-		shotCam.aspect = aspectRatio; 
+		shotCam.aspect = 1;
+		imgWidth = 1340; 
+		imgHeight = imgWidth;
+
 	}
 
-	public void SetAspectRatio(PaintingSpecs PS){
-		imgWidth = PS.width; 
-		imgHeight = PS.height; 
-		aspectRatio = PS.paintingRatio; 
-		transform.position = PS.posOfCamera; 
-		transform.Translate (0f, 0f, -3f); 
-		GetComponent<Camera> ().orthographicSize = PS.camSize; 
-	}
+//	public void SetAspectRatio(PaintingSpecs PS){
+//		aspectRatio = PS.paintingRatio; 
+//		transform.position = PS.posOfCamera; 
+//		transform.Translate (0f, 0f, -3f); 
+//		GetComponent<Camera> ().orthographicSize = PS.camSize; 
+//	}
 	
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.C)) {
@@ -35,7 +37,7 @@ public class SnapShot : MonoBehaviour {
 
 
 	 public void CreateImageFromCam(){
-			shotCam.aspect = aspectRatio; 
+			//shotCam.aspect = aspectRatio; 
 			RenderTexture tempRT = new RenderTexture (imgWidth, imgHeight, 24); 
 			shotCam.targetTexture = tempRT; 
 			shotCam.Render (); 
@@ -49,4 +51,5 @@ public class SnapShot : MonoBehaviour {
 			shotCam.targetTexture = null; 
 			//Destroy (tempRT); 
 		}
+
 }

@@ -20,7 +20,23 @@ public class TouchInput : MonoBehaviour {
 	float startDist; 
 	float currentDist; 
 	float diffDist;
+	int orderLayer = 0; 
+	SpriteRenderer SR; 
 	public GameObject doneButton; 
+
+
+	void Start (){
+
+	}
+
+	void StoreScale(){
+		minScale = (recipientChild.GetComponent<StickerStats>().stickerScale.x)/3; 
+		maxScale = (recipientChild.GetComponent<StickerStats>().stickerScale.x)*2.5f; 
+
+ 
+
+	}
+
 	void Update () {
 
 		//Whenever there is a touch
@@ -43,19 +59,25 @@ public class TouchInput : MonoBehaviour {
 				//parent the empty object to the touch
 
 				//If you hit a sticker UI object, parent a clone object to the touchpos
-				if (Physics.Raycast (ray, out hit, raylength, stickerMask)) {
+				if (Physics.Raycast (ray, out hit, raylength, stickerMask) && GameObject.FindGameObjectsWithTag("inPlay").Length < 300 ) {
 					sticker = hit.transform.gameObject; 
+					//setting the sticker grabbed
 					recipientChild = Instantiate (sticker, sticker.transform.position, Quaternion.identity); 
+					SR = recipientChild.GetComponent<SpriteRenderer> (); 
+					SR.sortingOrder = 1002; 
 					recipientChild.layer = 9; 
 					recipientChild.tag = "inPlay"; 
 					//parented = true; 
-					ParentObject(recipientChild, touchParent);   
+					ParentObject(recipientChild, touchParent);
+					StoreScale (); 
+
 
 				} else {
 					
 					//if its already in play just move it
 					if(Physics.Raycast(ray, out hit, raylength, inPlayMask)){
 						recipientChild = hit.transform.gameObject; 
+						StoreScale (); 
 						//parented = true; 
 						ParentObject(recipientChild, touchParent);   
 					}
@@ -65,6 +87,8 @@ public class TouchInput : MonoBehaviour {
 			// Ended or error, unparent
 			if (Input.GetTouch (0).phase == TouchPhase.Ended || Input.GetTouch (0).phase == TouchPhase.Canceled) {
 				//parented = false; 
+				orderLayer += 1; 
+				SR.sortingOrder = orderLayer;
 				UnParentObject (recipientChild); 
 				CheckIfDone (); 
 				if (recipientChild != null) {
@@ -134,6 +158,8 @@ public class TouchInput : MonoBehaviour {
 
 
 	}
+
+
 
 	void ParentObject(GameObject child, Transform parent){
 

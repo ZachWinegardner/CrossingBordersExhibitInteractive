@@ -7,6 +7,7 @@ public class SaveManager : MonoBehaviour {
 	public static SaveManager Instance { set; get; }
 	public SaveState state; 
 	public int[][] questions; 
+
 	private void Awake(){
 		DontDestroyOnLoad (gameObject); 
 		Instance = this; 

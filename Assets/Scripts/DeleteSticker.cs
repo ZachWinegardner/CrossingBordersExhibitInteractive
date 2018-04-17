@@ -13,6 +13,7 @@ public class DeleteSticker : MonoBehaviour {
 	Vector3 deletedScale; 
 
 	public bool _readyToDelete; 
+	public bool _canRotate = false; 
 
 	SpriteRenderer spriteRenderer; 
 	public Color32 deletedColor; 

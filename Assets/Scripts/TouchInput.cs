@@ -152,6 +152,24 @@ public class TouchInput : MonoBehaviour {
 				Vector3 pinchedScale = new Vector3 (xScale, yScale, 1); 
 				recipientChild.transform.localScale = pinchedScale;  
 
+				if (recipientChild.GetComponent<DeleteSticker> ()._canRotate==true) {
+					float pinchAmount = 0;
+					Quaternion desiredRotation = recipientChild.transform.rotation;
+
+					RotateCalc.Calculate();
+
+					if (Mathf.Abs(RotateCalc.turnAngleDelta) > 0) { // rotate
+						Vector3 rotationDeg = Vector3.zero;
+						rotationDeg.z = RotateCalc.turnAngleDelta;
+						desiredRotation *= Quaternion.Euler(rotationDeg);
+					}
+
+
+					// not so sure those will work:
+					recipientChild.transform.rotation = desiredRotation;
+					//transform.position += Vector3.forward * pinchAmount; 
+				}
+
 			}
 
 		}

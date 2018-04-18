@@ -8,7 +8,7 @@ public class Scrolling : MonoBehaviour {
 	public Transform stickers; 
 	public float top; 
 	public float bottom; 
-
+	Vector3 scrolledPos; 
 
 
 	// Update is called once per frame
@@ -18,9 +18,14 @@ public class Scrolling : MonoBehaviour {
 		float scrolledValue;
 		scrolledValue = Mathf.Lerp (top, bottom, scrollValue); 
 
-		Vector3 scrolledPos = new Vector3 (stickers.position.x, scrolledValue, stickers.position.z); 
+		scrolledPos = new Vector3 (stickers.position.x, scrolledValue, stickers.position.z); 
 
 		stickers.position = scrolledPos; 
 
+	}
+
+	public void Reset(){
+		GetComponent<Scrollbar> ().value = 0; 
+		stickers.position = scrolledPos; 
 	}
 }

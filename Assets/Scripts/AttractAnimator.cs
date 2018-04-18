@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AttractAnimator : MonoBehaviour {
 
-	Vector3 startPos; 
+	public Vector3 startPos; 
 	public float offset; 
 	public float amp; 
 	public float zValue; 
@@ -24,7 +24,7 @@ public class AttractAnimator : MonoBehaviour {
 
 		if (onCanvas){
 			CG = GetComponent <CanvasGroup> ();
-			print ("got CG"); 
+			//print ("got CG"); 
 			CG.alpha = 0f; 
 		}
 
@@ -33,12 +33,15 @@ public class AttractAnimator : MonoBehaviour {
 	public IEnumerator Zoom (){
 		zoom = true; 
 		yield return new WaitForSeconds (2); 
+		zoom = false; 
+		transform.position = startPos; 
 		if (!onCanvas)
 			gameObject.SetActive (false); 
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		
 		
 		if (zoom) {
 			// For the welcome screen , fade in
@@ -48,8 +51,8 @@ public class AttractAnimator : MonoBehaviour {
 			//For all other things, move
 			else {
 				if (!onCanvas) {
-					zValue += .2f; 
-					transform.position = startPos + new Vector3 (0f, 0f, -zValue);
+					transform.Translate (0f, 0f, -.1f);
+					//zValue += .2f; 
 				}
 			}
 
@@ -67,7 +70,7 @@ public class AttractAnimator : MonoBehaviour {
 
 	}
 
-	void Reset (){
+	public void Reset (){
 		if (!onCanvas)
 			transform.position = startPos; 
 		else

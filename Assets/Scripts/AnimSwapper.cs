@@ -15,9 +15,13 @@ public class AnimSwapper : MonoBehaviour {
 	public void SetAnim (int index){
 
 		foreach (GameObject anim in anims) {
-			anim.SetActive (false); 
+			if (anim.activeSelf) {
+				anim.GetComponent<PlayAnim> ().Stop (); 
+				anim.SetActive (false);
+			}
 		}
 
-		anims [index - 1].SetActive (true); 
+		anims [index - 1].SetActive (true);
+		anims [index - 1].GetComponent<PlayAnim> ().Play (); 
 	}
 }

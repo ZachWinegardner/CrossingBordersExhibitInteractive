@@ -85,7 +85,7 @@ public class TouchInput : MonoBehaviour {
 			}
 
 			// Ended or error, unparent
-			if (Input.GetTouch (0).phase == TouchPhase.Ended || Input.GetTouch (0).phase == TouchPhase.Canceled) {
+			if ((Input.GetTouch (0).phase == TouchPhase.Ended) && recipientChild!=null || (Input.GetTouch (0).phase == TouchPhase.Canceled) && recipientChild!=null)  {
 				//parented = false; 
 				orderLayer += 1; 
 				SR.sortingOrder = orderLayer;

@@ -54,5 +54,6 @@ public class PromptData : MonoBehaviour {
 
 	public void SetToNeutral(){
 		slider.value = 3; 
+		SetValue (); 
 	}
 }

@@ -5,32 +5,21 @@ using UnityEngine.UI;
 
 public class PlayAnim : MonoBehaviour {
 
-	public MovieTexture movie; 
+	//public MovieTexture movie; 
 
 
-	// Use this for initialization
-	void Awake () {
-		GetComponent<RawImage> ().texture = movie as MovieTexture;
-		Play (); 
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (Input.GetKeyDown (KeyCode.P)) {
-			Play (); 
-		}
-
-		if (Input.GetKeyDown (KeyCode.S)) {
-			Stop (); 
-		}
+	void Start (){
+		//Handheld.PlayFullScreenMovie ("Animation1.mov", Color.black, FullScreenMovieControlMode.Full); 
+		//print ("play"); 
 	}
 
-	public void Play(){
-		movie.Play (); 
-		movie.loop = true; 
+	public void Play(string name){
+		//Handheld.PlayFullScreenMovie ("Animation1.mp4", Color.black, FullScreenMovieControlMode.Full, FullScreenMovieScalingMode.AspectFit); 
+		//print (name); 
+		//movie.Play (); 
+		//movie.loop = true; 
 	}
 
 	public void Stop(){
-		movie.Stop ();
 	}
 }

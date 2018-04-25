@@ -17,6 +17,7 @@ public class GameManagerScript : MonoBehaviour {
 	public GameObject arrow; 
 	public PromptData sliderData; 
 	public GameObject[] promptQs; 
+	public GameObject codeButtons; 
 
 	public GameObject attractCam; 
 	public AttractStickersActivate attrOn; 
@@ -51,7 +52,6 @@ public class GameManagerScript : MonoBehaviour {
 		arrow.SetActive (true); 
 
 		//PROMPTS
-		sliderData.SetToNeutral (); 
 		foreach (GameObject prompt in promptQs) {
 			prompt.SetActive (false); 
 		}
@@ -73,7 +73,8 @@ public class GameManagerScript : MonoBehaviour {
 		screens [0].SetActive (true); 
 		//WELCOME
 		AttrAnim.Reset(); 
-		screens[1].GetComponent<CanvasGroup>().alpha = 0f; 
+		screens[1].GetComponent<CanvasGroup>().alpha = 0f;
+		codeButtons.SetActive (true); 
 
 	}
 

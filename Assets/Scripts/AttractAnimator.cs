@@ -71,11 +71,7 @@ public class AttractAnimator : MonoBehaviour {
 	}
 
 	public void Reset (){
-		if (!onCanvas)
-			transform.position = startPos; 
-		else
-			CG.alpha = 0f; 
-		
+		CG.alpha = 0f; 
 		zoom = false; 
 
 	}

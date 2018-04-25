@@ -17,7 +17,8 @@ public class GameManagerScript : MonoBehaviour {
 	public GameObject arrow; 
 	public PromptData sliderData; 
 	public GameObject[] promptQs; 
-	public GameObject codeButtons; 
+	public GameObject codeButtons;
+	public GameObject animBGPanel; 
 
 	public GameObject attractCam; 
 	public AttractStickersActivate attrOn; 
@@ -61,7 +62,8 @@ public class GameManagerScript : MonoBehaviour {
 
 		//ATTRACT
 		attrOn.TurnOnStickers(); 
-		attractCam.SetActive (true); 
+		attractCam.SetActive (true);
+		animBGPanel.SetActive (true); 
 
 
 		//RESET SCREENS
@@ -75,6 +77,34 @@ public class GameManagerScript : MonoBehaviour {
 		AttrAnim.Reset(); 
 		screens[1].GetComponent<CanvasGroup>().alpha = 0f;
 		codeButtons.SetActive (true); 
+
+	}
+
+	public void CreateNew(){
+		
+		//turn off artist info (SELECTION)
+		foreach (GameObject info in artistInfo){
+			info.SetActive (false); 
+		}
+
+		// PLAY SCREEN
+		clearStickers.Clear (); 
+		donePanel.SetActive (false); 
+		permissionsPanel.SetActive (false); 
+		arrow.SetActive (true); 
+
+		//PROMPTS
+		foreach (GameObject prompt in promptQs) {
+			prompt.SetActive (false); 
+		}
+		promptQs [0].SetActive (true); 
+
+
+		//RESET SCREENS
+		foreach (GameObject screen in screens) {
+			screen.SetActive (false); 
+		}
+		screens [3].SetActive (true); 
 
 	}
 

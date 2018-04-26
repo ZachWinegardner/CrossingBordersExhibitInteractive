@@ -47,7 +47,10 @@ public class TouchInput : MonoBehaviour {
 			Vector3 touchPosZero = Camera.main.ScreenToWorldPoint (Input.GetTouch (0).position);; 
 			//Vector3 touchPosOne = Camera.main.ScreenToWorldPoint (Input.GetTouch (1).position);; 
 			touchParent.position = touchPosZero;
-			
+
+			if (touchParent.childCount == 2) {
+				Destroy (touchParent.GetChild (1).gameObject); 
+			}
 
 
 			//Check if that touch just began
@@ -70,6 +73,7 @@ public class TouchInput : MonoBehaviour {
 					//parented = true; 
 					ParentObject(recipientChild, touchParent);
 					StoreScale (); 
+
 
 
 				} else {

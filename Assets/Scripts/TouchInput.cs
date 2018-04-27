@@ -22,6 +22,8 @@ public class TouchInput : MonoBehaviour {
 	float diffDist;
 	public int orderLayer = 0; 
 	SpriteRenderer SR; 
+	DeleteSticker DS; 
+
 	public GameObject doneButton; 
 
 
@@ -89,36 +91,61 @@ public class TouchInput : MonoBehaviour {
 			}
 
 			// Ended or error, unparent
-			if ((Input.GetTouch (0).phase == TouchPhase.Ended) && recipientChild!=null || (Input.GetTouch (0).phase == TouchPhase.Canceled) && recipientChild!=null)  {
+			if ((Input.GetTouch (0).phase == TouchPhase.Ended) || (Input.GetTouch (0).phase == TouchPhase.Canceled) )  {
 				//parented = false; 
 				//print (touchParent.GetChild(0).name.ToString()); 
-				orderLayer += 1; 
-				UnParentObject (recipientChild); 
-				CheckIfDone (); 
 				if (recipientChild != null) {
-					DeleteSticker DS = recipientChild.GetComponent<DeleteSticker> (); 
-					SR.sortingOrder = orderLayer;
-					if (DS._readyToDelete) {
-						Destroy (recipientChild); 
+					orderLayer += 1; 
+					CheckIfDone (); 
+					//if rec child isn't what's parented to the toucher
+					if (recipientChild != touchParent.GetChild (0).gameObject) {
+						DS = touchParent.GetChild (0).GetComponent < DeleteSticker> (); 
+						SR = touchParent.GetChild (0).GetComponent<SpriteRenderer> ();
+						SR.sortingOrder = orderLayer; 
+
+						if (DS._readyToDelete) {
+							Destroy (touchParent.GetChild (0).gameObject); 
+							recipientChild = null; 
+						} else {
+							UnParentObject (touchParent.GetChild (0).gameObject); 
+							recipientChild = null; 
+						}
+					} 
+					//If it is what the child is
+					else {
+						DS = recipientChild.GetComponent<DeleteSticker> ();
+						SR = recipientChild.GetComponent<SpriteRenderer> (); 
+						SR.sortingOrder = orderLayer;
+						if (DS._readyToDelete) {
+							Destroy (recipientChild); 
+							recipientChild = null; 
+						} else {
+							UnParentObject (recipientChild);
+							recipientChild = null; 
+						}
 					}
 				}
+
+
+				if (touchParent.childCount == 1) {
+					//print ("leftover 1"); 
+					Destroy (touchParent.GetChild (0).gameObject); 
+				}
+
+				if (touchParent.childCount == 2) {
+					//print ("leftover 2"); 
+					Destroy (touchParent.GetChild (0).gameObject);
+					Destroy (touchParent.GetChild (1).gameObject); 
+
+				}
+
 
 
 			}
 
 			if (Input.GetTouch (0).phase == TouchPhase.Ended) {
 				//print ("checking leftover"); 
-				if (touchParent.childCount == 1) {
-					//print ("leftover 1"); 
-					Destroy (touchParent.GetChild (0)); 
-				}
 
-				if (touchParent.childCount == 2) {
-					//print ("leftover 2"); 
-					Destroy (touchParent.GetChild (0));
-					Destroy (touchParent.GetChild (1)); 
-
-				}
 			}
 		}
 

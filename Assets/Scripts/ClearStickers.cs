@@ -11,12 +11,11 @@ public class ClearStickers : MonoBehaviour {
 		inPlayStickers = GameObject.FindGameObjectsWithTag ("inPlay"); 
 		if (inPlayStickers.Length > 0) {
 			foreach (GameObject sticker in inPlayStickers) {
-				Destroy (sticker); 
-				if (inPlayStickers.Length >=3)
-					StartCoroutine (HideDone ()); 
-
+				Destroy (sticker);
 			}
+
 		}
+		StartCoroutine (HideDone ()); 
 
 	}
 

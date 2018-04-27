@@ -20,7 +20,7 @@ public class TouchInput : MonoBehaviour {
 	float startDist; 
 	float currentDist; 
 	float diffDist;
-	int orderLayer = 0; 
+	public int orderLayer = 0; 
 	SpriteRenderer SR; 
 	public GameObject doneButton; 
 
@@ -47,7 +47,10 @@ public class TouchInput : MonoBehaviour {
 			Vector3 touchPosZero = Camera.main.ScreenToWorldPoint (Input.GetTouch (0).position);; 
 			//Vector3 touchPosOne = Camera.main.ScreenToWorldPoint (Input.GetTouch (1).position);; 
 			touchParent.position = touchPosZero;
-			
+
+			if (touchParent.childCount == 2) {
+				Destroy (touchParent.GetChild (1).gameObject); 
+			}
 
 
 			//Check if that touch just began
@@ -72,6 +75,7 @@ public class TouchInput : MonoBehaviour {
 					StoreScale (); 
 
 
+
 				} else {
 					
 					//if its already in play just move it
@@ -87,25 +91,35 @@ public class TouchInput : MonoBehaviour {
 			// Ended or error, unparent
 			if ((Input.GetTouch (0).phase == TouchPhase.Ended) && recipientChild!=null || (Input.GetTouch (0).phase == TouchPhase.Canceled) && recipientChild!=null)  {
 				//parented = false; 
+				//print (touchParent.GetChild(0).name.ToString()); 
 				orderLayer += 1; 
-				SR.sortingOrder = orderLayer;
 				UnParentObject (recipientChild); 
 				CheckIfDone (); 
 				if (recipientChild != null) {
 					DeleteSticker DS = recipientChild.GetComponent<DeleteSticker> (); 
+					SR.sortingOrder = orderLayer;
 					if (DS._readyToDelete) {
 						Destroy (recipientChild); 
 					}
 				}
+
+
 			}
 
-			//Set the cloned object touched to the touchpos
-//			if (parented) {
-//				Vector3 newpos = new Vector3 (touchPosZero.x, touchPosZero.y, recipientChild.transform.position.z); 
-//				recipientChild.transform.position = newpos;
-//
-//
-//			}
+			if (Input.GetTouch (0).phase == TouchPhase.Ended) {
+				//print ("checking leftover"); 
+				if (touchParent.childCount == 1) {
+					//print ("leftover 1"); 
+					Destroy (touchParent.GetChild (0)); 
+				}
+
+				if (touchParent.childCount == 2) {
+					//print ("leftover 2"); 
+					Destroy (touchParent.GetChild (0));
+					Destroy (touchParent.GetChild (1)); 
+
+				}
+			}
 		}
 
 		//For Zooming and Rotation

@@ -63,6 +63,19 @@ public class SaveManager : MonoBehaviour {
 		questions = new int[][] { state.Q1_Responses, state.Q2_Responses, state.Q3_Responses, state.Q4_Responses }; 
 	}
 
+	public void addMaker(){
+		state.numberOfMakers += 1; 
+	}
+
+	public void addRespondent(){
+		state.numberOfRespondents += 1; 
+	}
+
+	public void SetIpad(string name){
+		state.iPadName = name; 
+		state.hasName = true; 
+	}
+
 	void Update (){
 		if (Input.GetKeyDown (KeyCode.R)) {
 			PlayerPrefs.DeleteKey ("save"); 

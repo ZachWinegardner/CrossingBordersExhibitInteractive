@@ -35,7 +35,7 @@ VideoClipImporter:
       customWidth: 1024
       customHeight: 768
       bitrateMode: 2
-      spatialQuality: 2
+      spatialQuality: 1
   userData: 
   assetBundleName: 
   assetBundleVariant: 
